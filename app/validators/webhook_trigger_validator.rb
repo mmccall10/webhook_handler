@@ -1,6 +1,6 @@
 class WebhookTriggerValidator < ActiveModel::Validator
   def validate(record)
-    pattern = /([gl]te|contains|(starts|ends)_with):\w+/
+    pattern = /([gl]te||eq|contains|(starts|ends)_with):\w+/
     message = "Does not meed trigger format conditions. ex. int:gte:1000 #{pattern.inspect}"
     record.errors[:trigger] << message unless record.trigger.match?(pattern)
 

@@ -17,7 +17,7 @@ class Webhook < ApplicationRecord
   end
 
   def auth_header
-    "Basic "+ Base64.encode64("#{ENV.fetch('DEVICE_USER')}:#{ENV.fetch('DEVICE_PASSWORD')}")
+    'Basic ' + Base64.encode64("#{ENV.fetch('DEVICE_USER')}:#{ENV.fetch('DEVICE_PASSWORD')}")
   end
 
 
@@ -28,6 +28,8 @@ class Webhook < ApplicationRecord
     operator, trigger_value = trigger.split(':')
 
     case operator
+    when 'eq'
+      String(payload_value) == String(trigger_value)
     when 'gte'
       Integer(payload_value) >= Integer(trigger_value)
     when 'lte'
